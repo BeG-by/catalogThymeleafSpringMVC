@@ -4,14 +4,23 @@
     <meta charset="UTF-8">
     <title>Welcome</title>
 </head>
-<body style="text-align: center">
+<body style="text-align: center" th:with="user=${session.currentUser}">
 <h1>Добавление товара</h1>
 <nav>
     <a href="/">
         <input type="submit" value="Главная">
     </a>
-    <a href="/add">
+    <a th:if="${user != null and user.isAdmin()}" href="/add">
         <input type="submit" value="Добавить товар">
+    </a>
+    <a th:if="${user == null}" href="/auth">
+        <input type="submit" value="Войти">
+    </a>
+    <a th:if="${user == null}" href="/reg">
+        <input type="submit" value="Регистрация">
+    </a>
+    <a th:if="${user != null}" href="/auth/out">
+        <input type="submit" value="Выйти">
     </a>
 </nav>
 

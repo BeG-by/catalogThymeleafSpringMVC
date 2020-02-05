@@ -3,8 +3,13 @@ package by.beg.catalog.config;
 
 import by.beg.catalog.entity.Product;
 import by.beg.catalog.entity.ProductTypeEnum;
+import by.beg.catalog.entity.User;
+import by.beg.catalog.interceptor.AdminInterceptor;
+import by.beg.catalog.interceptor.IsAuthorizationInterceptor;
+import by.beg.catalog.interceptor.notAuthorizationInterceptor;
 import org.springframework.context.annotation.*;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.thymeleaf.spring5.SpringTemplateEngine;
@@ -42,6 +47,30 @@ public class Config implements WebMvcConfigurer {
         return products;
     }
 
+
+    @Bean("userList")
+    public ArrayList<User> userList() {
+        ArrayList<User> users = new ArrayList<>();
+
+        users.add(new User("Admin", "+375291111111", "Чкалова 15", "admin@gmail.com", "admin", true, true));
+        users.add(new User("Dispatcher1", "+375291111111", "Чкалова 15", "dispatcher1@gmail.com", "dispatcher", false, true));
+        users.add(new User("Dispatcher2", "+375291111111", "Чкалова 15", "dispatcher2@gmail.com", "dispatcher", false, true));
+        users.add(new User("user1", "+375291111111", "Воронянского 17", "user1@gmail.com", "user"));
+        users.add(new User("user2", "+375291111111", "Ленина 2", "user2@gmail.com", "user"));
+        users.add(new User("user3", "+375291111111", "Немига 15", "user3@gmail.com", "user"));
+        users.add(new User("user4", "+375291111111", "Немига 17", "user4@gmail.com", "user"));
+        users.add(new User("user5", "+375291111111", "Тимерязева 42", "user5@gmail.com", "user"));
+
+        return users;
+
+    }
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(new AdminInterceptor()).addPathPatterns("/add", "/edit/**", "/remove/**");
+        registry.addInterceptor(new IsAuthorizationInterceptor()).addPathPatterns("/reg" , "/auth");
+        registry.addInterceptor(new notAuthorizationInterceptor()).addPathPatterns("/out");
+    }
 
     @Bean
     public SpringResourceTemplateResolver getTemplateResolver() {

@@ -11,7 +11,7 @@ public class Product implements Serializable {
     private static int count = 0;
     private int id = ++count;
 
-    @NotBlank(message = "Имя не должно быть пустым")
+    @NotBlank(message = "Заполните имя")
     @Size(min = 2 , max = 24 , message = "Имя должно содержать от 2 до 24 символов")
     private String name;
 

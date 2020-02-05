@@ -1,7 +1,7 @@
 package by.beg.catalog.entity;
 
 public enum ProductTypeEnum {
-    PHONE("Телефон"), LAPTOP("Ноутбук"), PC("Компютер"), TABLET("Планшет");
+    PC("Компютер"), LAPTOP("Ноутбук"), PHONE("Телефон"), TABLET("Планшет");
 
     private String name;
 

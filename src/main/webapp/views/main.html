@@ -4,14 +4,23 @@
     <meta charset="UTF-8">
     <title>Главная</title>
 </head>
-<body style="text-align: center">
+<body style="text-align: center" th th:with="user=${session.currentUser}">
 <h1>Каталог товаров</h1>
 <nav>
     <a href="/">
         <input type="submit" value="Главная">
     </a>
-    <a href="/add">
+    <a th:if="${user != null and user.isAdmin()}" href="/add">
         <input type="submit" value="Добавить товар">
+    </a>
+    <a th:if="${user == null}" href="/auth">
+        <input type="submit" value="Войти">
+    </a>
+    <a th:if="${user == null}" href="/reg">
+        <input type="submit" value="Регистрация">
+    </a>
+    <a th:if="${user != null}" href="/auth/out">
+        <input type="submit" value="Выйти">
     </a>
 </nav>
 
@@ -32,11 +41,23 @@
             <td th:text="${product.type.name}"></td>
             <td th:text="${product.description}"></td>
             <td th:text="${product.price} + ' $'"></td>
-            <td><a th:href="@{/edit/{id}(id=${product.id})}"><input type="submit" value="Редактировать"></a></td>
-            <td><a th:href="@{/remove/{id}(id=${product.id})}"><input type="submit" value="Удалить"></a></td>
+            <td th:if="${user != null  and user.isAdmin()}">
+                <a th:href="@{/edit/{id}(id=${product.id})}"><input type="submit" value="Редактировать"></a>
+            </td>
+            <td th:if="${user != null and user.isAdmin()}">
+                <a th:href="@{/remove/{id}(id=${product.id})}"><input type="submit" value="Удалить"></a>
+            </td>
         </tr>
     </table>
 </main>
+
+<div th:if="${user != null and user.isAdmin()}">
+    <p>Админ</p>
+</div>
+
+<div th:if="${user != null and user.isDispatcher()}">
+    <p>Диспетчер</p>
+</div>
 
 </body>
 </html>
