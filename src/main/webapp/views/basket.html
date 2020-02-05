@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Корзина</title>
+</head>
+<body style="text-align: center" th:with="user=${session.currentUser}">
+<h1>Ваша корзина</h1>
+
+<nav th:insert="~{main :: nav}"></nav>
+
+<p th:if="${@productBasket.isEmpty()}">Корзина пуста</p>
+
+<main style="padding-top: 10px" th:if="${!@productBasket.isEmpty()}">
+    <table style="margin: auto" border="1">
+        <tr>
+            <th>ID</th>
+            <th>Название продукта</th>
+            <th>Тип</th>
+            <th>Описание</th>
+            <th>Цена</th>
+        </tr>
+        <tr th:each="product, iter : ${@productBasket}">
+            <td th:text="${product.id}"></td>
+            <td th:text="${product.name}"></td>
+            <td th:text="${product.type.name}"></td>
+            <td th:text="${product.description}"></td>
+            <td th:text="${product.price} + ' $'"></td>
+            <td><a th:href="@{/basket/remove/{index}(index=${iter.index})}"><input type="submit" value="Удалить"></a>
+            </td>
+        </tr>
+    </table>
+    <p><a href="/basket/order"><input type="submit" value="Заказать"></a></p>
+</main>
+
+<div>
+    <p th:text="'Ваше имя: ' + ${user.name}"></p>
+    <p th:text="'Ваш номер: ' + ${user.phoneNumber}"></p>
+    <p th:text="'Ваш адресс: ' + ${user.address}"></p>
+    <p th:text="'Ваша почта: ' + ${user.email}"></p>
+</div>
+
+</body>
+</html>

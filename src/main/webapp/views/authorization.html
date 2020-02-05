@@ -1,28 +1,13 @@
 <!DOCTYPE html>
-<html lang="ru" xmlns:th="http://www.thymeleaf.org" xmlns:data-th="http://www.w3.org/1999/xhtml">
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Авторизация</title>
 </head>
 <body style="text-align: center" th:with="user=${session.currentUser}">
 <h1>Авторизация</h1>
-<nav>
-    <a href="/">
-        <input type="submit" value="Главная">
-    </a>
-    <a th:if="${user != null and user.isAdmin()}" href="/add">
-        <input type="submit" value="Добавить товар">
-    </a>
-    <a th:if="${user == null}" href="/auth">
-        <input type="submit" value="Войти">
-    </a>
-    <a th:if="${user == null}" href="/reg">
-        <input type="submit" value="Регистрация">
-    </a>
-    <a th:if="${user != null}" href="/auth/out">
-        <input type="submit" value="Выйти">
-    </a>
-</nav>
+
+<nav th:insert="~{main :: nav}"></nav>
 
 <main>
     <form th:action="@{/auth}" th:object="${authUser}" method="post">

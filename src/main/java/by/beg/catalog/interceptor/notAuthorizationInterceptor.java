@@ -18,6 +18,6 @@ public class notAuthorizationInterceptor implements HandlerInterceptor {
             return false;
         }
 
-        return false;
+        return true;
     }
 }

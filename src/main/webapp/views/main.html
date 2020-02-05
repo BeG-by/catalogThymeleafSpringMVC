@@ -1,17 +1,24 @@
 <!DOCTYPE html>
-<html lang="ru" xmlns:th="http://www.thymeleaf.org" xmlns:data-th="http://www.w3.org/1999/xhtml">
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Главная</title>
 </head>
 <body style="text-align: center" th th:with="user=${session.currentUser}">
 <h1>Каталог товаров</h1>
-<nav>
+
+<nav th:fragment="nav">
     <a href="/">
         <input type="submit" value="Главная">
     </a>
+    <a href="/basket" th:if="${user != null}">
+        <input type="submit" value="Корзина">
+    </a>
     <a th:if="${user != null and user.isAdmin()}" href="/add">
         <input type="submit" value="Добавить товар">
+    </a>
+    <a th:if="${user != null and (user.isAdmin() or user.isDispatcher())}" href="/orders">
+        <input type="submit" value="Заказы">
     </a>
     <a th:if="${user == null}" href="/auth">
         <input type="submit" value="Войти">
@@ -47,17 +54,21 @@
             <td th:if="${user != null and user.isAdmin()}">
                 <a th:href="@{/remove/{id}(id=${product.id})}"><input type="submit" value="Удалить"></a>
             </td>
+            <td th:if="${user != null}">
+                <a th:href="@{/basket/add/{id}(id=${product.id})}"><input type="submit" value="Добавить в корзину"></a>
+            </td>
         </tr>
     </table>
 </main>
 
-<div th:if="${user != null and user.isAdmin()}">
-    <p>Админ</p>
-</div>
+<p th:if="${added}">Товар был добавлен в корзину</p>
 
-<div th:if="${user != null and user.isDispatcher()}">
-    <p>Диспетчер</p>
-</div>
+<p th:if="${isOrdered}">Заказ принят. Ожидайте звонка диспетчера.</p>
+
+<p th:if="${user != null and user.isAdmin()}">Вы администратор</p>
+
+<p th:if="${user != null and user.isDispatcher()}">Вы диспетчер</p>
+
 
 </body>
 </html>

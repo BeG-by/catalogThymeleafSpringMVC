@@ -52,9 +52,7 @@ public class ProductService {
 
 
     public void orderById() {
-        productList.sort((p1, p2) ->
-                p1.getId() - p2.getId());
-
+        productList.sort((p1, p2) -> p1.getId() - p2.getId());
     }
 
     public void orderByName() {

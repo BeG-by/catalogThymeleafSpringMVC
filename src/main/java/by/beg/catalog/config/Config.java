@@ -1,13 +1,16 @@
 package by.beg.catalog.config;
 
 
+import by.beg.catalog.entity.Order;
 import by.beg.catalog.entity.Product;
 import by.beg.catalog.entity.ProductTypeEnum;
 import by.beg.catalog.entity.User;
 import by.beg.catalog.interceptor.AdminInterceptor;
+import by.beg.catalog.interceptor.DispatcherInterceptor;
 import by.beg.catalog.interceptor.IsAuthorizationInterceptor;
 import by.beg.catalog.interceptor.notAuthorizationInterceptor;
 import org.springframework.context.annotation.*;
+import org.springframework.web.context.annotation.SessionScope;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
@@ -65,11 +68,23 @@ public class Config implements WebMvcConfigurer {
 
     }
 
+    @Bean("productBasket")
+    @SessionScope
+    public ArrayList<Product> basket() {
+        return new ArrayList<>();
+    }
+
+    @Bean("orderList")
+    public ArrayList<Order> orderList() {
+        return new ArrayList<>();
+    }
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new AdminInterceptor()).addPathPatterns("/add", "/edit/**", "/remove/**");
-        registry.addInterceptor(new IsAuthorizationInterceptor()).addPathPatterns("/reg" , "/auth");
-        registry.addInterceptor(new notAuthorizationInterceptor()).addPathPatterns("/out");
+        registry.addInterceptor(new IsAuthorizationInterceptor()).addPathPatterns("/reg", "/auth");
+        registry.addInterceptor(new notAuthorizationInterceptor()).addPathPatterns("/basket", "/basket/**", "/out");
+        registry.addInterceptor(new DispatcherInterceptor()).addPathPatterns("/orders", "/orders/**");
     }
 
     @Bean

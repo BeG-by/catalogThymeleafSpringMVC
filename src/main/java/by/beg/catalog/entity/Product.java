@@ -4,6 +4,7 @@ package by.beg.catalog.entity;
 
 import javax.validation.constraints.*;
 import java.io.Serializable;
+import java.util.Objects;
 
 
 public class Product implements Serializable {
@@ -38,10 +39,6 @@ public class Product implements Serializable {
 
     public static int getCount() {
         return count;
-    }
-
-    public static void setCount(int count) {
-        Product.count = count;
     }
 
     public int getId() {
@@ -94,5 +91,18 @@ public class Product implements Serializable {
                 ", description='" + description + '\'' +
                 ", price=" + price +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Product product = (Product) o;
+        return id == product.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }
