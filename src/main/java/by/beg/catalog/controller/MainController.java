@@ -1,15 +1,17 @@
 package by.beg.catalog.controller;
 
 
+import by.beg.catalog.entity.Product;
 import by.beg.catalog.service.ProductService;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.ArrayList;
 
 
 @Controller
+@RequestMapping("/")
 public class MainController {
 
     private ProductService productService;
@@ -18,7 +20,7 @@ public class MainController {
         this.productService = productService;
     }
 
-    @RequestMapping(method = RequestMethod.GET, path = "/")
+    @RequestMapping(method = RequestMethod.GET)
     public ModelAndView getMain(ModelAndView modelAndView) {
         productService.orderById();
         modelAndView.setViewName("main");
@@ -44,6 +46,29 @@ public class MainController {
 
         modelAndView.setViewName("main");
         return modelAndView;
+    }
+
+    @RequestMapping(method = RequestMethod.POST, path = "/search")
+    public ModelAndView postSearch(ModelAndView modelAndView, @RequestParam String string) {
+
+        ArrayList<Product> filterProducts = productService.filterProducts(string);
+
+        if (filterProducts.isEmpty()) {
+            modelAndView.addObject("filterIsEmpty", true);
+        } else {
+            modelAndView.addObject("productList", filterProducts);
+        }
+
+        modelAndView.setViewName("main");
+
+        return modelAndView;
+
+    }
+
+
+    @ModelAttribute()
+    public void addAttributes(ModelAndView modelAndView) {
+        modelAndView.addObject("productList", productService.getProductList());
     }
 
 

@@ -43,6 +43,25 @@ public class ProductService {
         return null;
     }
 
+    public ArrayList<Product> filterProducts(String string) {
+        ArrayList<Product> filterList = new ArrayList<>();
+
+        for (Product currentProduct : productList) {
+
+            String name = currentProduct.getName().toLowerCase();
+            String id = Integer.toString(currentProduct.getId());
+
+            if (name.startsWith(string.toLowerCase())) {
+                filterList.add(currentProduct);
+            } else if (id.startsWith(string.toLowerCase())) {
+                filterList.add(currentProduct);
+            }
+
+        }
+
+        return filterList;
+    }
+
     public void editProduct(Product oldProduct, Product newProduct) {
         oldProduct.setName(newProduct.getName());
         oldProduct.setType(newProduct.getType());

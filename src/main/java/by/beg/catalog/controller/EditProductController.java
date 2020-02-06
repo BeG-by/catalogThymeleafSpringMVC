@@ -38,7 +38,7 @@ public class EditProductController {
             modelAndView.setViewName("edit");
         } else {
             productService.editProduct(editProduct, product);
-            modelAndView.setViewName("main");
+            modelAndView.setViewName("redirect:/");
         }
 
         return modelAndView;
@@ -48,7 +48,7 @@ public class EditProductController {
     @RequestMapping(method = RequestMethod.GET, path = "/remove/{id}")
     public ModelAndView removeProduct(ModelAndView modelAndView, @PathVariable int id) {
         productService.removeProduct(id);
-        modelAndView.setViewName("main");
+        modelAndView.setViewName("redirect:/");
         return modelAndView;
     }
 

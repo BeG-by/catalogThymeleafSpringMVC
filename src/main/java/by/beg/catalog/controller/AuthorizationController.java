@@ -34,7 +34,7 @@ public class AuthorizationController {
 
         if (originalUser != null) {
             session.setAttribute("currentUser", originalUser);
-            modelAndView.setViewName("main");
+            modelAndView.setViewName("redirect:/");
         } else {
             modelAndView.addObject("isFail",true);
             modelAndView.setViewName("authorization");
@@ -46,7 +46,7 @@ public class AuthorizationController {
     @RequestMapping(method = RequestMethod.GET , path = "/out")
     public ModelAndView logout(ModelAndView modelAndView, HttpSession session){
         session.invalidate();
-        modelAndView.setViewName("main");
+        modelAndView.setViewName("redirect:/");
         return modelAndView;
     }
 

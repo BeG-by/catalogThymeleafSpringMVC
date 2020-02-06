@@ -49,7 +49,7 @@ public class BasketController {
         Product product = productService.searchProductById(id);
         productBasket.add(product);
         modelAndView.addObject("added", true);
-        modelAndView.setViewName("main");
+        modelAndView.setViewName("forward:/");
         return modelAndView;
     }
 
@@ -65,7 +65,7 @@ public class BasketController {
         orderService.makeOder(currentUser, new ArrayList<>(productBasket));
         productBasket.clear();
         modelAndView.addObject("isOrdered", true);
-        modelAndView.setViewName("main");
+        modelAndView.setViewName("forward:/");
         return modelAndView;
     }
 

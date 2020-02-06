@@ -31,7 +31,24 @@
     </a>
 </nav>
 
-<main style="padding-top: 10px">
+<p th:if="${added}">Товар был добавлен в корзину.</p>
+
+<p th:if="${isOrdered}">Заказ принят. Ожидайте звонка диспетчера.</p>
+
+<p th:if="${filterIsEmpty}">Таких товаров в магазине нет</p>
+
+<p th:if="${user != null and user.isAdmin()}">Вы администратор</p>
+
+<p th:if="${user != null and user.isDispatcher()}">Вы диспетчер</p>
+
+<form th:action="@{/search}" method="post">
+    <p>
+        <input type="text" name="string" placeholder="Поиск товаров">
+        <input type="submit" value="Поиск">
+    </p>
+</form>
+
+<main>
     <table style="margin: auto" border="1">
         <tr>
             <th>Номер</th>
@@ -41,7 +58,7 @@
             <th>Описание</th>
             <th><a th:href="@{/price}">Цена</a></th>
         </tr>
-        <tr th:each="product , iter : ${@productList}">
+        <tr th:each="product , iter : ${productList}">
             <td th:text="${iter.count}"></td>
             <td th:text="${product.id}"></td>
             <td th:text="${product.name}"></td>
@@ -60,14 +77,6 @@
         </tr>
     </table>
 </main>
-
-<p th:if="${added}">Товар был добавлен в корзину</p>
-
-<p th:if="${isOrdered}">Заказ принят. Ожидайте звонка диспетчера.</p>
-
-<p th:if="${user != null and user.isAdmin()}">Вы администратор</p>
-
-<p th:if="${user != null and user.isDispatcher()}">Вы диспетчер</p>
 
 
 </body>

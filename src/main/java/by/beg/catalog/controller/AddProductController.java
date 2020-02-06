@@ -38,7 +38,7 @@ public class AddProductController {
             modelAndView.setViewName("create");
         } else {
             productService.addProduct(product);
-            modelAndView.setViewName("main");
+            modelAndView.setViewName("redirect:/");
         }
 
         return modelAndView;
