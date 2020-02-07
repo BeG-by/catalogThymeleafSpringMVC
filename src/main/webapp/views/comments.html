@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Отзывы</title>
+</head>
+<body style="text-align: center" th:with="user=${session.currentUser}">
+<h1>Отзывы</h1>
+
+<nav th:insert="~{main :: nav}"></nav>
+
+<form th:action="@{/comment}" method="post">
+    <p>
+        <input type="text" name="comment" placeholder="Ваш отзыв">
+        <input type="submit" value="Оставить отзыв">
+    </p>
+</form>
+
+<p th:if="${@commentsList.isEmpty()}">Отзывов нет</p>
+
+<main th:if="${!@commentsList.isEmpty()}">
+    <div th:each="comment : ${@commentsList}">
+        <p th:text="${comment}"></p>
+    </div>
+</main>
+
+
+</body>
+</html>

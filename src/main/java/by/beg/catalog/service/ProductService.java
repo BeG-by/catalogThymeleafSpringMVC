@@ -53,7 +53,7 @@ public class ProductService {
 
             if (name.startsWith(string.toLowerCase())) {
                 filterList.add(currentProduct);
-            } else if (id.startsWith(string.toLowerCase())) {
+            } else if (id.equals(string.toLowerCase())) {
                 filterList.add(currentProduct);
             }
 

@@ -1,7 +1,5 @@
 package by.beg.catalog.entity;
 
-
-
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Objects;

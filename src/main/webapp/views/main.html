@@ -14,6 +14,9 @@
     <a href="/basket" th:if="${user != null}">
         <input type="submit" value="Корзина">
     </a>
+    <a th:if="${user != null}" href="/comment">
+        <input type="submit" value="Оставить отзыв">
+    </a>
     <a th:if="${user != null and user.isAdmin()}" href="/add">
         <input type="submit" value="Добавить товар">
     </a>
@@ -32,13 +35,9 @@
 </nav>
 
 <p th:if="${added}">Товар был добавлен в корзину.</p>
-
 <p th:if="${isOrdered}">Заказ принят. Ожидайте звонка диспетчера.</p>
-
 <p th:if="${filterIsEmpty}">Таких товаров в магазине нет</p>
-
 <p th:if="${user != null and user.isAdmin()}">Вы администратор</p>
-
 <p th:if="${user != null and user.isDispatcher()}">Вы диспетчер</p>
 
 <form th:action="@{/search}" method="post">
@@ -77,7 +76,6 @@
         </tr>
     </table>
 </main>
-
 
 </body>
 </html>

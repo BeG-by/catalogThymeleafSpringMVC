@@ -1,8 +1,8 @@
 package by.beg.catalog.controller;
 
+import by.beg.catalog.entity.Order;
 import by.beg.catalog.entity.Product;
 import by.beg.catalog.entity.User;
-import by.beg.catalog.service.OrderService;
 import by.beg.catalog.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 @Controller
 @RequestMapping("/basket")
@@ -21,13 +23,15 @@ public class BasketController {
 
     private ArrayList<Product> productBasket;
     private ProductService productService;
-    private OrderService orderService;
+    private ArrayList<Order> orderList;
 
     @Autowired
-    public BasketController(@Qualifier("productBasket") ArrayList<Product> productBasket, ProductService productService, OrderService orderService) {
+    public BasketController(@Qualifier("productBasket") ArrayList<Product> productBasket,
+                            @Qualifier("orderList") ArrayList<Order> orderList,
+                            ProductService productService) {
         this.productBasket = productBasket;
         this.productService = productService;
-        this.orderService = orderService;
+        this.orderList = orderList;
     }
 
 
@@ -62,8 +66,12 @@ public class BasketController {
         }
 
         User currentUser = (User) session.getAttribute("currentUser");
-        orderService.makeOder(currentUser, new ArrayList<>(productBasket));
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("'Дата:' dd.MM.yyyy 'Время:' HH:mm:ss");
+        String time = simpleDateFormat.format(new Date());
+        orderList.add(new Order(time, currentUser, new ArrayList<>(productBasket)));
         productBasket.clear();
+
         modelAndView.addObject("isOrdered", true);
         modelAndView.setViewName("forward:/");
         return modelAndView;
