@@ -1,10 +1,10 @@
-package by.beg.catalog.service;
+package by.beg.catalog.dao;
 
 import by.beg.catalog.entity.Product;
 
 import java.util.List;
 
-public interface ProductService {
+public interface ProductDAO {
 
     void createProduct(Product product);
 
@@ -17,12 +17,4 @@ public interface ProductService {
     List<Product> findProducts(String string);
 
     void updateProduct(Product product);
-
-    void orderById();
-
-    void orderByName();
-
-    void orderByPrice();
-
-    void orderByType();
 }

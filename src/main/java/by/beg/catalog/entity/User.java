@@ -1,31 +1,47 @@
 package by.beg.catalog.entity;
 
+import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Objects;
 
+@Entity
+@Table(name = "users")
 public class User implements Serializable {
+
+    @Id
+    @Column(name = "id_users")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
 
     @NotBlank(message = "Заполните имя")
     @Size(min = 2 , max = 12, message = "Имя должно быть от 2 до 12 символов")
+    @Column(name = "name")
     private String name;
 
     @NotBlank(message = "Заполните номер")
+    @Column(name = "phoneNumber")
     private String phoneNumber;
 
     @NotBlank(message = "Заполните адрес")
+    @Column(name = "address")
     private String address;
 
-    @Email(message = "Некорректная почна")
+    @Email(message = "Некорректная почта")
+    @Column(name = "email")
     private String email;
 
     @NotBlank(message = "Заполните пароль")
     @Size(min = 4 , max = 16 , message = "Пароль должен содержать от 4 до 16 символов")
+    @Column(name = "password")
     private String password;
 
+    @Column(name = "admin")
     boolean isAdmin;
+
+    @Column(name = "dispatcher")
     boolean isDispatcher;
 
     public User(String name, String phoneNumber, String address, String email, String password, boolean isAdmin, boolean isDispatcher) {
@@ -53,6 +69,11 @@ public class User implements Serializable {
 
     public User() {
     }
+
+    public long getId() {
+        return id;
+    }
+
 
     public String getName() {
         return name;
@@ -127,7 +148,8 @@ public class User implements Serializable {
     @Override
     public String toString() {
         return "User{" +
-                "name='" + name + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", address='" + address + '\'' +
                 ", email='" + email + '\'' +

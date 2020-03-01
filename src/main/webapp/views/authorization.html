@@ -10,7 +10,7 @@
 <nav th:insert="~{main :: nav}"></nav>
 
 <main>
-    <form th:action="@{/auth}" th:object="${authUser}" method="post">
+    <form th:action="@{/user/auth}" th:object="${authUser}" method="post">
         <p><input type="email" th:field="*{email}" placeholder="Почта"></p>
         <p><input type="password" th:field="*{password}" placeholder="Пароль"></p>
         <p><input type="submit" value="Авторизироваться"></p>

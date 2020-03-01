@@ -10,7 +10,7 @@
 <nav th:insert="~{main :: nav}"></nav>
 
 <main>
-    <form action="#" th:action="@{/edit}" th:object="${product}" method="post">
+    <form action="#" th:action="@{/product/edit}" th:object="${product}" method="post">
         <p><input type="text" th:field="*{name}" th:value="*{name}"></p>
         <p>
             Компютер<input type="radio" th:field="*{type}" th:value="${T(by.beg.catalog.entity.ProductTypeEnum).PC}">

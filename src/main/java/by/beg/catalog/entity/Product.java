@@ -1,19 +1,24 @@
 package by.beg.catalog.entity;
 
+import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Objects;
 
-
+@Entity
+@Table(name = "products")
 public class Product implements Serializable {
 
-    private static int count = 0;
-    private int id = ++count;
+    @Id
+    @Column(name = "id_products")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
     @NotBlank(message = "Заполните имя")
-    @Size(min = 2 , max = 24 , message = "Имя должно содержать от 2 до 24 символов")
+    @Size(min = 2, max = 24, message = "Имя должно содержать от 2 до 24 символов")
     private String name;
 
+    @Enumerated(EnumType.STRING)
     @NotNull(message = "Тип не должен быть пустым")
     private ProductTypeEnum type;
 
@@ -35,16 +40,9 @@ public class Product implements Serializable {
     public Product() {
     }
 
-    public static int getCount() {
-        return count;
-    }
 
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getName() {

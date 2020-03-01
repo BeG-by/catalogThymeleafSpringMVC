@@ -17,19 +17,19 @@
     <a th:if="${user != null}" href="/comment">
         <input type="submit" value="Оставить отзыв">
     </a>
-    <a th:if="${user != null and user.isAdmin()}" href="/add">
+    <a th:if="${user != null and user.isAdmin()}" th:href="@{/product}">
         <input type="submit" value="Добавить товар">
     </a>
     <a th:if="${user != null and (user.isAdmin() or user.isDispatcher())}" href="/orders">
         <input type="submit" value="Заказы">
     </a>
-    <a th:if="${user == null}" href="/auth">
+    <a th:if="${user == null}" href="/user/auth">
         <input type="submit" value="Войти">
     </a>
-    <a th:if="${user == null}" href="/reg">
+    <a th:if="${user == null}" href="/user/reg">
         <input type="submit" value="Регистрация">
     </a>
-    <a th:if="${user != null}" href="/auth/out">
+    <a th:if="${user != null}" href="/user/out">
         <input type="submit" value="Выйти">
     </a>
 </nav>
@@ -65,10 +65,10 @@
             <td th:text="${product.description}"></td>
             <td th:text="${product.price} + ' $'"></td>
             <td th:if="${user != null  and user.isAdmin()}">
-                <a th:href="@{/edit/{id}(id=${product.id})}"><input type="submit" value="Редактировать"></a>
+                <a th:href="@{/product/edit/{id}(id=${product.id})}"><input type="submit" value="Редактировать"></a>
             </td>
             <td th:if="${user != null and user.isAdmin()}">
-                <a th:href="@{/remove/{id}(id=${product.id})}"><input type="submit" value="Удалить"></a>
+                <a th:href="@{/product/remove/{id}(id=${product.id})}"><input type="submit" value="Удалить"></a>
             </td>
             <td th:if="${user != null}">
                 <a th:href="@{/basket/add/{id}(id=${product.id})}"><input type="submit" value="Добавить в корзину"></a>

@@ -4,6 +4,7 @@ import by.beg.catalog.entity.Order;
 import by.beg.catalog.entity.Product;
 import by.beg.catalog.entity.User;
 import by.beg.catalog.service.ProductService;
+import by.beg.catalog.service.ProductServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -50,7 +51,7 @@ public class BasketController {
 
     @RequestMapping(method = RequestMethod.GET, path = "/add/{id}")
     public ModelAndView addBasket(ModelAndView modelAndView, @PathVariable int id) {
-        Product product = productService.searchProductById(id);
+        Product product = productService.getProductById(id);
         productBasket.add(product);
         modelAndView.addObject("added", true);
         modelAndView.setViewName("forward:/");
