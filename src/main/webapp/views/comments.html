@@ -9,17 +9,18 @@
 
 <nav th:insert="~{main :: nav}"></nav>
 
-<form th:action="@{/comment}" method="post">
+<form th:action="@{/comment}" th:object="${comment}" method="post">
     <p>
-        <input type="text" name="comment" placeholder="Ваш отзыв">
+        <input type="text" th:field="*{text}" placeholder="Ваш отзыв">
         <input type="submit" value="Оставить отзыв">
     </p>
+    <p style="color: red" th:if="${#fields.hasErrors('text')}" th:errors="*{text}"></p>
 </form>
 
-<p th:if="${@commentsList.isEmpty()}">Отзывов нет</p>
+<p th:if="${commentsList.isEmpty()}">Отзывов нет</p>
 
-<main th:if="${!@commentsList.isEmpty()}">
-    <div th:each="comment : ${@commentsList}">
+<main th:if="${!commentsList.isEmpty()}">
+    <div th:each="comment : ${commentsList}">
         <p th:text="${comment}"></p>
     </div>
 </main>

@@ -29,16 +29,7 @@ public class ProductDAOImpl implements ProductDAO {
     @Override
     @SuppressWarnings("unchecked")
     public List<Product> getAllProducts() {
-
-        List<Product> products = sessionFactory.getCurrentSession().createQuery("from Product ").list();
-
-        if (products != null) {
-            for (Product currentProduct : products) {
-                logger.info("Product was found: " + currentProduct);
-            }
-        }
-
-        return products;
+        return (List<Product>) sessionFactory.getCurrentSession().createQuery("from Product ").list();
     }
 
     @Override
@@ -52,7 +43,7 @@ public class ProductDAOImpl implements ProductDAO {
 
     @Override
     public Product getProductById(int id) {
-        return sessionFactory.getCurrentSession().load(Product.class, id);
+        return sessionFactory.getCurrentSession().get(Product.class, id);
     }
 
     @Override

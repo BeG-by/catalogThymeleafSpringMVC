@@ -18,11 +18,11 @@ public interface ProductService {
 
     void updateProduct(Product product);
 
-    void orderById();
+    void orderById(List<Product> productList);
 
-    void orderByName();
+    void orderByName(List<Product> productList);
 
-    void orderByPrice();
+    void orderByPrice(List<Product> productList);
 
-    void orderByType();
+    void orderByType(List<Product> productList);
 }

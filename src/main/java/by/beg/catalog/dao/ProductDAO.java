@@ -17,4 +17,5 @@ public interface ProductDAO {
     List<Product> findProducts(String string);
 
     void updateProduct(Product product);
+
 }

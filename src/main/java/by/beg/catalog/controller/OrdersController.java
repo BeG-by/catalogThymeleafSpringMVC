@@ -11,7 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.ArrayList;
 
 @Controller
-@RequestMapping("/orders")
+@RequestMapping("/order")
 public class OrdersController {
 
     private ArrayList<Order> orderList;

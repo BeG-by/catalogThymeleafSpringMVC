@@ -50,18 +50,18 @@ public class ProductController {
         return modelAndView;
     }
 
-//    @PutMapping("/edit")
-//    public ModelAndView postEdit(ModelAndView modelAndView, @Valid @ModelAttribute Product product, BindingResult bindingResult) {
-//
-//        if (bindingResult.hasErrors()) {
-//            modelAndView.setViewName("edit");
-//        } else {
-//            productServiceImpl.editProduct(editProduct, product);
-//            modelAndView.setViewName("redirect:/");
-//        }
-//
-//        return modelAndView;
-//    }
+    @PostMapping("/edit")
+    public ModelAndView postEdit(ModelAndView modelAndView, @Valid @ModelAttribute Product product, BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            modelAndView.setViewName("edit");
+        } else {
+            productService.updateProduct(product);
+            modelAndView.setViewName("redirect:/");
+        }
+
+        return modelAndView;
+    }
 
 
     @GetMapping("/remove/{id}")
@@ -72,7 +72,7 @@ public class ProductController {
     }
 
     @ModelAttribute("types")
-    public ProductTypeEnum[] addAttributes(){
+    public ProductTypeEnum[] addAttributes() {
         return ProductTypeEnum.values();
     }
 

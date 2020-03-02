@@ -29,6 +29,14 @@ public class Product implements Serializable {
     private int price;
 
 
+    public Product(int id, String name, ProductTypeEnum type, String description, int price) {
+        this.id = id;
+        this.name = name;
+        this.type = type;
+        this.description = description;
+        this.price = price;
+    }
+
     public Product(String name, ProductTypeEnum type, String description, int price) {
         this.name = name;
         this.type = type;
@@ -36,13 +44,16 @@ public class Product implements Serializable {
         this.price = price;
     }
 
-
     public Product() {
     }
 
 
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {

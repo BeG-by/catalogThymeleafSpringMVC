@@ -23,7 +23,7 @@
             <p th:text="'ID: ' + ${product.id} + '; Имя: ' + ${product.name} + '; Цена: ' + ${product.price}"></p>
         </div>
 
-        <a th:href="@{/orders/remove/{index}(index = ${iter.index})}"> <input type="submit" value="Удалить заказ"></a>
+        <a th:href="@{/order/remove/{index}(index = ${iter.index})}"> <input type="submit" value="Удалить заказ"></a>
     </div>
 
 </main>

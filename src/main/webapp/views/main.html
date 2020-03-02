@@ -11,25 +11,25 @@
     <a href="/">
         <input type="submit" value="Главная">
     </a>
-    <a href="/basket" th:if="${user != null}">
+    <a th:if="${user != null}" th:href="@{/basket}">
         <input type="submit" value="Корзина">
     </a>
-    <a th:if="${user != null}" href="/comment">
+    <a th:if="${user != null}" th:href="@{/comment}">
         <input type="submit" value="Оставить отзыв">
     </a>
     <a th:if="${user != null and user.isAdmin()}" th:href="@{/product}">
         <input type="submit" value="Добавить товар">
     </a>
-    <a th:if="${user != null and (user.isAdmin() or user.isDispatcher())}" href="/orders">
+    <a th:if="${user != null and (user.isAdmin() or user.isDispatcher())}" th:href="@{/order}">
         <input type="submit" value="Заказы">
     </a>
-    <a th:if="${user == null}" href="/user/auth">
+    <a th:if="${user == null}" th:href="@{/user/auth}">
         <input type="submit" value="Войти">
     </a>
-    <a th:if="${user == null}" href="/user/reg">
+    <a th:if="${user == null}" th:href="@{/user/reg}">
         <input type="submit" value="Регистрация">
     </a>
-    <a th:if="${user != null}" href="/user/out">
+    <a th:if="${user != null}" th:href="@{/user/out}">
         <input type="submit" value="Выйти">
     </a>
 </nav>

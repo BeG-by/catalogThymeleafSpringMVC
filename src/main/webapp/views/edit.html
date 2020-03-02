@@ -11,6 +11,7 @@
 
 <main>
     <form action="#" th:action="@{/product/edit}" th:object="${product}" method="post">
+        <input type="hidden" th:field="*{id}" th:value="*{id}">
         <p><input type="text" th:field="*{name}" th:value="*{name}"></p>
         <p>
             Компютер<input type="radio" th:field="*{type}" th:value="${T(by.beg.catalog.entity.ProductTypeEnum).PC}">

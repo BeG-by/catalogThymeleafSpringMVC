@@ -18,24 +18,19 @@ public class User implements Serializable {
 
     @NotBlank(message = "Заполните имя")
     @Size(min = 2 , max = 12, message = "Имя должно быть от 2 до 12 символов")
-    @Column(name = "name")
     private String name;
 
     @NotBlank(message = "Заполните номер")
-    @Column(name = "phoneNumber")
     private String phoneNumber;
 
     @NotBlank(message = "Заполните адрес")
-    @Column(name = "address")
     private String address;
 
     @Email(message = "Некорректная почта")
-    @Column(name = "email")
     private String email;
 
     @NotBlank(message = "Заполните пароль")
     @Size(min = 4 , max = 16 , message = "Пароль должен содержать от 4 до 16 символов")
-    @Column(name = "password")
     private String password;
 
     @Column(name = "admin")

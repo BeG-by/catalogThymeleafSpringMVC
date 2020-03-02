@@ -4,13 +4,12 @@ import by.beg.catalog.entity.Order;
 import by.beg.catalog.entity.Product;
 import by.beg.catalog.entity.User;
 import by.beg.catalog.service.ProductService;
-import by.beg.catalog.service.ProductServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
@@ -36,20 +35,20 @@ public class BasketController {
     }
 
 
-    @RequestMapping(method = RequestMethod.GET)
+    @GetMapping
     public ModelAndView getBasket(ModelAndView modelAndView) {
         modelAndView.setViewName("basket");
         return modelAndView;
     }
 
-    @RequestMapping(method = RequestMethod.GET, path = "/remove/{index}")
+    @GetMapping("/remove/{index}")
     public ModelAndView removeBasketProduct(ModelAndView modelAndView, @PathVariable int index) {
         productBasket.remove(index);
         modelAndView.setViewName("basket");
         return modelAndView;
     }
 
-    @RequestMapping(method = RequestMethod.GET, path = "/add/{id}")
+    @GetMapping("/add/{id}")
     public ModelAndView addBasket(ModelAndView modelAndView, @PathVariable int id) {
         Product product = productService.getProductById(id);
         productBasket.add(product);
@@ -58,7 +57,7 @@ public class BasketController {
         return modelAndView;
     }
 
-    @RequestMapping(method = RequestMethod.GET, path = "/order")
+    @GetMapping("/order")
     public ModelAndView addBasket(ModelAndView modelAndView, HttpSession session) {
 
         if (productBasket.isEmpty()) {

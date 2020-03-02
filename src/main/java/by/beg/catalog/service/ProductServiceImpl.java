@@ -57,16 +57,12 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    @Transactional
-    public void orderById() {
-        List<Product> productList = productDAO.getAllProducts();
+    public void orderById(List<Product> productList) {
         productList.sort(Comparator.comparingInt(Product::getId));
     }
 
     @Override
-    @Transactional
-    public void orderByName() {
-        List<Product> productList = productDAO.getAllProducts();
+    public void orderByName(List<Product> productList) {
         productList.sort((Product p1, Product p2) -> {
             if (p1.getName().compareTo(p2.getName()) != 0) {
                 return p1.getName().compareTo(p2.getName());
@@ -77,9 +73,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    @Transactional
-    public void orderByPrice() {
-        List<Product> productList = productDAO.getAllProducts();
+    public void orderByPrice(List<Product> productList) {
         productList.sort((Product p1, Product p2) -> {
             if (p1.getPrice() - p2.getPrice() != 0) {
                 return p1.getPrice() - p2.getPrice();
@@ -90,9 +84,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    @Transactional
-    public void orderByType() {
-        List<Product> productList = productDAO.getAllProducts();
+    public void orderByType(List<Product> productList) {
         productList.sort((Product p1, Product p2) -> {
             if (p1.getType().getName().compareTo(p2.getType().getName()) != 0) {
                 return p1.getType().getName().compareTo(p2.getType().getName());

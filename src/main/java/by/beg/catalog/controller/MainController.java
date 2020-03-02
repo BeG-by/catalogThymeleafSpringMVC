@@ -3,12 +3,11 @@ package by.beg.catalog.controller;
 
 import by.beg.catalog.entity.Product;
 import by.beg.catalog.service.ProductService;
-import by.beg.catalog.service.ProductServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -18,39 +17,44 @@ public class MainController {
 
     private ProductService productService;
 
+    @Autowired
     public MainController(ProductService productServiceImpl) {
         this.productService = productServiceImpl;
     }
 
-    @RequestMapping(method = RequestMethod.GET)
+    @GetMapping
     public ModelAndView getMain(ModelAndView modelAndView) {
-//        productService.orderById();
+        modelAndView.addObject("productList", productService.getAllProducts());
         modelAndView.setViewName("main");
         return modelAndView;
     }
 
-    @RequestMapping(method = RequestMethod.GET, path = "/{sort}")
+    @GetMapping("/{sort}")
     public ModelAndView getSort(ModelAndView modelAndView, @PathVariable String sort) {
+
+        List<Product> productList = productService.getAllProducts();
 
         switch (sort.toLowerCase()) {
             case "id":
-                productService.orderById();
+                productService.orderById(productList);
                 break;
             case "name":
-                productService.orderByName();
+                productService.orderByName(productList);
                 break;
             case "type":
-                productService.orderByType();
+                productService.orderByType(productList);
                 break;
             case "price":
-                productService.orderByPrice();
+                productService.orderByPrice(productList);
         }
+
+        modelAndView.addObject("productList", productList);
 
         modelAndView.setViewName("main");
         return modelAndView;
     }
 
-    @RequestMapping(method = RequestMethod.POST, path = "/search")
+    @PostMapping("/search")
     public ModelAndView postSearch(ModelAndView modelAndView, @RequestParam String string) {
 
         List<Product> filterProducts = productService.findProducts(string);
@@ -66,12 +70,5 @@ public class MainController {
         return modelAndView;
 
     }
-
-
-    @ModelAttribute()
-    public void addAttributes(ModelAndView modelAndView) {
-        modelAndView.addObject("productList", productService.getAllProducts());
-    }
-
 
 }
