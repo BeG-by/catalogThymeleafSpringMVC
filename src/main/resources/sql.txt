@@ -1,6 +1,4 @@
-Users table
-
-CREATE TABLE `catalog_db`.`users` (
+  CREATE TABLE `catalog_db`.`users` (
   `id_users` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
   `phoneNumber` VARCHAR(45) NOT NULL,
@@ -12,8 +10,6 @@ CREATE TABLE `catalog_db`.`users` (
   PRIMARY KEY (`id_users`));
 
   INSERT INTO users VALUES(null,'admin','123','address','admin@gmail.com','admin',1,1);
-
-  Products table
 
   CREATE TABLE `catalog_db`.`products` (
     `id_products` INT NOT NULL AUTO_INCREMENT,
@@ -32,3 +28,22 @@ CREATE TABLE `catalog_db`.`users` (
       `name` VARCHAR(45) NOT NULL,
       `text` TINYTEXT NOT NULL,
       PRIMARY KEY (`id_comments`));
+
+
+      CREATE TABLE `catalog_db`.`basket_order` (
+        `id_basket` INT NOT NULL AUTO_INCREMENT,
+        `id_user` INT NOT NULL,
+        `id_product` INT NOT NULL,
+        PRIMARY KEY (`id_basket`),
+        INDEX `id_user_idx` (`id_user` ASC) VISIBLE,
+        INDEX `id_product_idx` (`id_product` ASC) VISIBLE,
+        CONSTRAINT `id_user`
+          FOREIGN KEY (`id_user`)
+          REFERENCES `catalog_db`.`users` (`id_users`)
+          ON DELETE NO ACTION
+          ON UPDATE NO ACTION,
+        CONSTRAINT `id_product`
+          FOREIGN KEY (`id_product`)
+          REFERENCES `catalog_db`.`products` (`id_products`)
+          ON DELETE NO ACTION
+          ON UPDATE NO ACTION);

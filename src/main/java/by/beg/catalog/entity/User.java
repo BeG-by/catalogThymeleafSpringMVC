@@ -5,6 +5,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -38,6 +39,9 @@ public class User implements Serializable {
 
     @Column(name = "dispatcher")
     boolean isDispatcher;
+
+    @OneToMany(fetch = FetchType.LAZY , mappedBy = "user" , cascade = CascadeType.ALL)
+    private List<BasketOrder> basketOrderList;
 
     public User(String name, String phoneNumber, String address, String email, String password, boolean isAdmin, boolean isDispatcher) {
         this.name = name;
@@ -124,6 +128,14 @@ public class User implements Serializable {
 
     public void setDispatcher(boolean dispatcher) {
         isDispatcher = dispatcher;
+    }
+
+    public List<BasketOrder> getBasketOrderList() {
+        return basketOrderList;
+    }
+
+    public void setBasketOrderList(List<BasketOrder> basketOrderList) {
+        this.basketOrderList = basketOrderList;
     }
 
     @Override

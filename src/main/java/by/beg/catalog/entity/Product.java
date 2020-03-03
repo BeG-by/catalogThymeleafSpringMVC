@@ -3,6 +3,7 @@ package by.beg.catalog.entity;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -27,6 +28,9 @@ public class Product implements Serializable {
 
     @Positive(message = "Цена должна быть больше 0")
     private int price;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "product")
+    private List<BasketOrder> basketOrderList;
 
 
     public Product(int id, String name, ProductTypeEnum type, String description, int price) {

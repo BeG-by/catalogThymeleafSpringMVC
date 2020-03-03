@@ -13,7 +13,7 @@ import javax.persistence.NoResultException;
 @Repository
 public class UserDAOImpl implements UserDAO {
 
-    private static Logger logger = LoggerFactory.getLogger(UserDAOImpl.class.getName());
+    private static Logger logger = LoggerFactory.getLogger(UserDAOImpl.class.getSimpleName());
     private SessionFactory sessionFactory;
 
     @Autowired

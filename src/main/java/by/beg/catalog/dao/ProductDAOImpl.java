@@ -12,7 +12,7 @@ import java.util.List;
 @Repository
 public class ProductDAOImpl implements ProductDAO {
 
-    private static Logger logger = LoggerFactory.getLogger(UserDAOImpl.class.getName());
+    private static Logger logger = LoggerFactory.getLogger(UserDAOImpl.class.getSimpleName());
     private SessionFactory sessionFactory;
 
     @Autowired
