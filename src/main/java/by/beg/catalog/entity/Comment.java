@@ -2,15 +2,16 @@ package by.beg.catalog.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-@Table(name = "comments")
-public class Comment {
+//@Table(name = "comments")
+public class Comment implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_comments")
+//    @Column(name = "id_comment")
     private long id;
 
     @Temporal(value = TemporalType.TIMESTAMP)

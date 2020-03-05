@@ -20,7 +20,7 @@
     <a th:if="${user != null and user.isAdmin()}" th:href="@{/product}">
         <input type="submit" value="Добавить товар">
     </a>
-    <a th:if="${user != null and (user.isAdmin() or user.isDispatcher())}" th:href="@{/order}">
+    <a th:if="${user != null and (user.isAdmin() or user.isDispatcher())}" th:href="@{/finalOrder}">
         <input type="submit" value="Заказы">
     </a>
     <a th:if="${user == null}" th:href="@{/user/auth}">

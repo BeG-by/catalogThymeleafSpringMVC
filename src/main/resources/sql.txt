@@ -10,6 +10,7 @@
   PRIMARY KEY (`id_users`));
 
   INSERT INTO users VALUES(null,'admin','123','address','admin@gmail.com','admin',1,1);
+  INSERT INTO user VALUES (null,'address','admin@gmail.com',1,1, 'name','admin','phone');
 
   CREATE TABLE `catalog_db`.`products` (
     `id_products` INT NOT NULL AUTO_INCREMENT,
@@ -21,6 +22,8 @@
 
     INSERT INTO products VALUES (null, 'Xiaomi', 'PHONE', 'норм', 100), (null, 'Comp', 'PC', 'норм', 300), (null, 'Apple 4', 'TABLET', 'норм', 200);
     INSERT INTO products VALUES (null, 'Samsung 4d', 'PHONE', 'норм', 175), (null, 'Intel 4a', 'PC', 'норм', 600), (null, 'Apple 3', 'TABLET', 'норм', 250);
+
+    INSERT INTO product VALUES (null, 'норм', 'Xiaomi', 100, 'PHONE'), (null, 'норм', 'Apple', 150, 'TABLET'), (null, 'норм', 'Samsung', 125, 'PHONE')
 
     CREATE TABLE `catalog_db`.`comments` (
       `id_comments` INT NOT NULL AUTO_INCREMENT,

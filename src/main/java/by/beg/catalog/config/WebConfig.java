@@ -1,7 +1,7 @@
 package by.beg.catalog.config;
 
 
-import by.beg.catalog.entity.Order;
+import by.beg.catalog.entity.FinalOrder;
 import by.beg.catalog.entity.Product;
 import by.beg.catalog.interceptor.AdminInterceptor;
 import by.beg.catalog.interceptor.DispatcherInterceptor;
@@ -34,14 +34,10 @@ public class WebConfig implements WebMvcConfigurer {
     }
 
     @Bean("orderList")
-    public ArrayList<Order> orderList() {
+    public ArrayList<FinalOrder> orderList() {
         return new ArrayList<>();
     }
 
-//    @Bean("commentsList")
-//    public ArrayList<String> comments() {
-//        return new ArrayList<>();
-//    }
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {

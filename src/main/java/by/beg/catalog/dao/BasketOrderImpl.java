@@ -2,6 +2,7 @@ package by.beg.catalog.dao;
 
 import by.beg.catalog.entity.BasketOrder;
 import by.beg.catalog.entity.Product;
+import by.beg.catalog.entity.User;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.NativeQuery;
 import org.hibernate.query.Query;
@@ -26,21 +27,18 @@ public class BasketOrderImpl implements BasketOrderDAO {
 
     @Override
     public void addProduct(int userId, int productId) {
-        NativeQuery sqlQuery = sessionFactory.getCurrentSession().createSQLQuery("INSERT INTO basket_order VALUES (null , ? , ?)");
-        sqlQuery.setParameter(1, userId);
-        sqlQuery.setParameter(2, productId);
-        sqlQuery.executeUpdate();
+        User user = sessionFactory.getCurrentSession().load(User.class, (long) userId);
+        Product product = sessionFactory.getCurrentSession().load(Product.class, productId);
+        sessionFactory.getCurrentSession().persist(new BasketOrder(user, product));
         logger.info("BasketOrder was added: user_id(" + userId + "), product_id(" + productId + ")");
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public void removeProduct(int userId, int productId) {
-        Query query = sessionFactory.getCurrentSession().createQuery("FROM BasketOrder WHERE id_user = :id_user AND id_product = :id_product");
-        query.setParameter("id_user", userId);
-        query.setParameter("id_product", productId);
+    public void removeProduct(int userId, int productId) { Query query = sessionFactory.getCurrentSession().createQuery("FROM BasketOrder WHERE user_id = :user_id AND product_id = :product_id");
+        query.setParameter("user_id", userId);
+        query.setParameter("product_id", productId);
         List<BasketOrder> resultList = query.getResultList();
-
         sessionFactory.getCurrentSession().delete(resultList.get(0));
 
     }
@@ -48,8 +46,8 @@ public class BasketOrderImpl implements BasketOrderDAO {
     @Override
     @SuppressWarnings("unchecked")
     public List<Product> getProductsByUserId(int userId) {
-        Query query = sessionFactory.getCurrentSession().createQuery("FROM BasketOrder WHERE id_user = :id_user");
-        query.setParameter("id_user", userId);
+        Query query = sessionFactory.getCurrentSession().createQuery("FROM BasketOrder WHERE user_id = :user_id");
+        query.setParameter("user_id", userId);
 
         List<BasketOrder> resultList = query.getResultList();
         List<Product> productList = new ArrayList<>();
@@ -58,8 +56,6 @@ public class BasketOrderImpl implements BasketOrderDAO {
         for (BasketOrder currentObject : resultList) {
             productList.add(currentObject.getProduct());
         }
-
-//        System.out.println("productOrderList" + productList);
 
         return productList;
     }

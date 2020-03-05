@@ -1,6 +1,6 @@
 package by.beg.catalog.controller;
 
-import by.beg.catalog.entity.Order;
+import by.beg.catalog.entity.FinalOrder;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,10 +14,10 @@ import java.util.ArrayList;
 @RequestMapping("/order")
 public class OrdersController {
 
-    private ArrayList<Order> orderList;
+    private ArrayList<FinalOrder> finalOrderList;
 
-    public OrdersController(@Qualifier("orderList") ArrayList<Order> orderList) {
-        this.orderList = orderList;
+    public OrdersController(@Qualifier("orderList") ArrayList<FinalOrder> finalOrderList) {
+        this.finalOrderList = finalOrderList;
     }
 
     @RequestMapping(method = RequestMethod.GET)
@@ -28,7 +28,7 @@ public class OrdersController {
 
     @RequestMapping(method = RequestMethod.GET, path = "/remove/{index}")
     public ModelAndView removeOrder(ModelAndView modelAndView, @PathVariable int index) {
-        orderList.remove(index);
+        finalOrderList.remove(index);
         modelAndView.setViewName("orders");
         return modelAndView;
     }

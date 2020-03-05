@@ -1,6 +1,9 @@
 package by.beg.catalog.entity;
 
-public enum ProductTypeEnum {
+import java.io.Serializable;
+
+public enum ProductTypeEnum implements Serializable {
+
     PC("Компютер"), LAPTOP("Ноутбук"), PHONE("Телефон"), TABLET("Планшет");
 
     private String name;

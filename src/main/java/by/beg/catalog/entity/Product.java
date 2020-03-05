@@ -7,11 +7,11 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "products")
+//@Table(name = "products")
 public class Product implements Serializable {
 
     @Id
-    @Column(name = "id_products")
+//    @Column(name = "id_product")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
@@ -29,7 +29,7 @@ public class Product implements Serializable {
     @Positive(message = "Цена должна быть больше 0")
     private int price;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "product")
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<BasketOrder> basketOrderList;
 
 
@@ -92,6 +92,15 @@ public class Product implements Serializable {
     public void setType(ProductTypeEnum type) {
         this.type = type;
     }
+
+    public List<BasketOrder> getBasketOrderList() {
+        return basketOrderList;
+    }
+
+    public void setBasketOrderList(List<BasketOrder> basketOrderList) {
+        this.basketOrderList = basketOrderList;
+    }
+
 
     @Override
     public String toString() {
