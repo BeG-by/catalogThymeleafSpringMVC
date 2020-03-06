@@ -1,5 +1,6 @@
 package by.beg.catalog.dao;
 
+import by.beg.catalog.entity.Product;
 import by.beg.catalog.entity.User;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -13,7 +14,7 @@ import javax.persistence.NoResultException;
 @Repository
 public class UserDAOImpl implements UserDAO {
 
-    private static Logger logger = LoggerFactory.getLogger(UserDAOImpl.class.getSimpleName());
+    private static Logger logger = LoggerFactory.getLogger(UserDAOImpl.class.getName());
     private SessionFactory sessionFactory;
 
     @Autowired
@@ -40,16 +41,17 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public User getUser(String email, String password) {
 
-        Query query = sessionFactory.getCurrentSession().createQuery("FROM User WHERE email = :email AND password = :password");
+        Query<User> query = sessionFactory.getCurrentSession().createQuery("FROM User WHERE email = :email AND password = :password");
         query.setParameter("email", email);
         query.setParameter("password", password);
 
         User user = null;
 
         try {
-            user = (User) query.getSingleResult();
+            user = query.getSingleResult();
             logger.info("User by email and password was found: " + user);
         } catch (NoResultException ex) {
             logger.info("User wasn't found");
@@ -57,4 +59,14 @@ public class UserDAOImpl implements UserDAO {
 
         return user;
     }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public void logout(User user) {
+        Query<Product> query = sessionFactory.getCurrentSession().createQuery("DELETE from BasketOrder WHERE user = :user");
+        query.setParameter("user" , user);
+        query.executeUpdate();
+        logger.info("User was logout: " + user);
+    }
+
 }

@@ -3,6 +3,7 @@ package by.beg.catalog.entity;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class FinalOrder implements Serializable {
@@ -14,16 +15,23 @@ public class FinalOrder implements Serializable {
     @Temporal(TemporalType.TIME)
     private Date time;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    private BasketOrder basketOrder;
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    private User user;
 
-    public FinalOrder(Date time, BasketOrder basketOrder) {
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    private List<Product> products;
+
+    public FinalOrder(Date time, User user, List<Product> products) {
         this.time = time;
-        this.basketOrder = basketOrder;
+        this.user = user;
+        this.products = products;
     }
 
-
     public FinalOrder() {
+    }
+
+    public FinalOrder(Date time) {
+        this.time = time;
     }
 
     public long getId() {
@@ -42,12 +50,20 @@ public class FinalOrder implements Serializable {
         this.time = time;
     }
 
-    public BasketOrder getBasketOrder() {
-        return basketOrder;
+    public User getUser() {
+        return user;
     }
 
-    public void setBasketOrder(BasketOrder basketOrder) {
-        this.basketOrder = basketOrder;
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public List<Product> getProduct() {
+        return products;
+    }
+
+    public void setProduct(List<Product> product) {
+        this.products = product;
     }
 
     @Override
@@ -55,7 +71,8 @@ public class FinalOrder implements Serializable {
         return "FinalOrder{" +
                 "id=" + id +
                 ", time=" + time +
-                ", basketOrder=" + basketOrder +
+                ", user=" + user +
+                ", product=" + products +
                 '}';
     }
 }

@@ -58,7 +58,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void orderById(List<Product> productList) {
-        productList.sort(Comparator.comparingInt(Product::getId));
+        productList.sort((Product p1 , Product p2) -> (int) (p1.getId() - p2.getId()));
     }
 
     @Override
@@ -67,7 +67,7 @@ public class ProductServiceImpl implements ProductService {
             if (p1.getName().compareTo(p2.getName()) != 0) {
                 return p1.getName().compareTo(p2.getName());
             } else {
-                return p1.getId() - p2.getId();
+                return (int) (p1.getId() - p2.getId());
             }
         });
     }
@@ -78,7 +78,7 @@ public class ProductServiceImpl implements ProductService {
             if (p1.getPrice() - p2.getPrice() != 0) {
                 return p1.getPrice() - p2.getPrice();
             } else {
-                return p1.getId() - p2.getId();
+                return (int) (p1.getId() - p2.getId());
             }
         });
     }
@@ -89,7 +89,7 @@ public class ProductServiceImpl implements ProductService {
             if (p1.getType().getName().compareTo(p2.getType().getName()) != 0) {
                 return p1.getType().getName().compareTo(p2.getType().getName());
             } else {
-                return p1.getId() - p2.getId();
+                return (int) (p1.getId() - p2.getId());
             }
         });
     }

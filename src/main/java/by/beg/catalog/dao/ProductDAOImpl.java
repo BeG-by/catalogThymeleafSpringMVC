@@ -12,7 +12,7 @@ import java.util.List;
 @Repository
 public class ProductDAOImpl implements ProductDAO {
 
-    private static Logger logger = LoggerFactory.getLogger(UserDAOImpl.class.getSimpleName());
+    private static Logger logger = LoggerFactory.getLogger(UserDAOImpl.class.getName());
     private SessionFactory sessionFactory;
 
     @Autowired
@@ -29,12 +29,12 @@ public class ProductDAOImpl implements ProductDAO {
     @Override
     @SuppressWarnings("unchecked")
     public List<Product> getAllProducts() {
-        return (List<Product>) sessionFactory.getCurrentSession().createQuery("from Product ").list();
+        return (List<Product>) sessionFactory.getCurrentSession().createQuery("FROM Product ").list();
     }
 
     @Override
     public void removeProduct(int id) {
-        Product product = sessionFactory.getCurrentSession().load(Product.class, id);
+        Product product = sessionFactory.getCurrentSession().load(Product.class, (long) id);
         if (product != null) {
             sessionFactory.getCurrentSession().delete(product);
             logger.info("Product was deleted: " + product);
@@ -43,7 +43,7 @@ public class ProductDAOImpl implements ProductDAO {
 
     @Override
     public Product getProductById(int id) {
-        return sessionFactory.getCurrentSession().get(Product.class, id);
+        return sessionFactory.getCurrentSession().get(Product.class, (long) id);
     }
 
     @Override

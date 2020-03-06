@@ -9,21 +9,21 @@
 
 <nav th:insert="~{main :: nav}"></nav>
 
-<p th:if="${@finalOrderList.isEmpty()}">Заказов нет</p>
+<p th:if="${finalOrderList.isEmpty()}">Заказов нет</p>
 
 <main>
-    <div th:each="finalOrder , iter : ${@finalOrderList}">
+    <div th:each="finalOrder , iter : ${finalOrderList}">
         <p th:text="${finalOrder.time}"></p>
         <p th:text="'Имя:' + ${finalOrder.user.name}"></p>
         <p th:text="'Адрес:' + ${finalOrder.user.address}"></p>
         <p th:text="${'Телефон:' + finalOrder.user.phoneNumber}"></p>
         <p th:text="${'Почта:' + finalOrder.user.email}"></p>
         <p>Список товаров</p>
-        <div th:each="product : ${finalOrder.orderProducts}">
+        <div th:each="product : ${finalOrder.products}">
             <p th:text="'ID: ' + ${product.id} + '; Имя: ' + ${product.name} + '; Цена: ' + ${product.price}"></p>
         </div>
 
-        <a th:href="@{/finalOrder/remove/{index}(index = ${iter.index})}"> <input type="submit" value="Удалить заказ"></a>
+        <a th:href="@{/finalOrder/remove/{id}(id = ${finalOrder.id})}"> <input type="submit" value="Удалить заказ"></a>
     </div>
 
 </main>

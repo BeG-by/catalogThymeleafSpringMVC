@@ -6,12 +6,11 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-//@Table(name = "comments")
+@Table(name = "comments")
 public class Comment implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    @Column(name = "id_comment")
     private long id;
 
     @Temporal(value = TemporalType.TIMESTAMP)

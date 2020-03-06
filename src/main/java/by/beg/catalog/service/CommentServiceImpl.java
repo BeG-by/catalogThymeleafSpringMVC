@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.List;
 
 @Service
+@Transactional
 public class CommentServiceImpl implements CommentService {
 
     private CommentDAO commentDAO;
@@ -20,7 +21,6 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    @Transactional
     public void addComment(Comment comment, String name) {
         comment.setDate(new Date());
         comment.setName(name);
@@ -28,7 +28,6 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    @Transactional
     public List<Comment> getAllComments() {
         return commentDAO.getAllComments();
     }

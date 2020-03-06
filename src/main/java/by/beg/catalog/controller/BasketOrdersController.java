@@ -15,23 +15,23 @@ import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/basket")
-public class BasketController {
+public class BasketOrdersController {
 
     private BasketOrderService basketOrderService;
 
     @Autowired
-    public BasketController(BasketOrderService basketOrderService) {
+    public BasketOrdersController(BasketOrderService basketOrderService) {
         this.basketOrderService = basketOrderService;
     }
 
     @GetMapping
-    public ModelAndView getBasket(ModelAndView modelAndView) {
+    public ModelAndView getProductBasket(ModelAndView modelAndView) {
         modelAndView.setViewName("basket");
         return modelAndView;
     }
 
     @GetMapping("/add/{id}")
-    public ModelAndView addBasket(ModelAndView modelAndView, @PathVariable int id) {
+    public ModelAndView addProductBasket(ModelAndView modelAndView, @PathVariable int id) {
         int userId = (int) modelAndView.getModelMap().getAttribute("userId");
         basketOrderService.addProduct(userId, id);
 
@@ -49,34 +49,25 @@ public class BasketController {
         return modelAndView;
     }
 
+
+    @GetMapping("/order")
+    public ModelAndView doOrder(ModelAndView modelAndView, HttpSession session) {
+
+        User currentUser = (User) session.getAttribute("currentUser");
+
+        basketOrderService.doOrder(currentUser);
+
+        modelAndView.addObject("isOrdered", true);
+        modelAndView.setViewName("forward:/");
+        return modelAndView;
+    }
+
     @ModelAttribute
     public void addProductBasket(ModelAndView modelAndView, HttpSession session) {
         User currentUser = (User) session.getAttribute("currentUser");
         modelAndView.addObject("productBasket", basketOrderService.getProductList((int) currentUser.getId()));
         modelAndView.addObject("userId", (int) currentUser.getId());
     }
-
-
-//
-//    @GetMapping("/order")
-//    public ModelAndView addBasket(ModelAndView modelAndView, HttpSession session) {
-//
-//        if (productBasket.isEmpty()) {
-//            modelAndView.setViewName("basket");
-//            return modelAndView;
-//        }
-//
-//        User currentUser = (User) session.getAttribute("currentUser");
-//
-//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("'Дата:' dd.MM.yyyy 'Время:' HH:mm:ss");
-//        String time = simpleDateFormat.format(new Date());
-//        orderList.add(new Order(time, currentUser, new ArrayList<>(productBasket)));
-//        productBasket.clear();
-//
-//        modelAndView.addObject("isOrdered", true);
-//        modelAndView.setViewName("forward:/");
-//        return modelAndView;
-//    }
 
 
 }

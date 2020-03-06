@@ -9,11 +9,10 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-//@Table(name = "users")
+@Table(name = "users")
 public class User implements Serializable {
 
     @Id
-//    @Column(name = "id_user")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
@@ -40,11 +39,6 @@ public class User implements Serializable {
     @Column(name = "dispatcher")
     private boolean isDispatcher;
 
-//    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//    private List<BasketOrder> basketOrderList;
-//
-//    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//    private List<FinalOrder> finalOrderList;
 
     public User(String name, String phoneNumber, String address, String email, String password, boolean isAdmin, boolean isDispatcher) {
         this.name = name;
@@ -132,21 +126,6 @@ public class User implements Serializable {
         isDispatcher = dispatcher;
     }
 
-//    public List<BasketOrder> getBasketOrderList() {
-//        return basketOrderList;
-//    }
-//
-//    public void setBasketOrderList(List<BasketOrder> basketOrderList) {
-//        this.basketOrderList = basketOrderList;
-//    }
-//
-//    public List<FinalOrder> getFinalOrderList() {
-//        return finalOrderList;
-//    }
-//
-//    public void setFinalOrderList(List<FinalOrder> finalOrderList) {
-//        this.finalOrderList = finalOrderList;
-//    }
 
     @Override
     public boolean equals(Object o) {

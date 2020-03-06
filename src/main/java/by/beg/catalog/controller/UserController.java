@@ -2,7 +2,6 @@ package by.beg.catalog.controller;
 
 import by.beg.catalog.entity.User;
 import by.beg.catalog.service.UserService;
-import by.beg.catalog.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -73,7 +72,7 @@ public class UserController {
 
     @GetMapping("/out")
     public ModelAndView logout(ModelAndView modelAndView, HttpSession session) {
-        session.invalidate();
+        userServiceImpl.logout(session);
         modelAndView.setViewName("redirect:/");
         return modelAndView;
     }

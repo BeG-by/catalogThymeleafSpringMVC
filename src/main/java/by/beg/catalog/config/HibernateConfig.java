@@ -43,6 +43,7 @@ public class HibernateConfig {
         dataSource.setUrl(environment.getRequiredProperty("jdbc.url"));
         dataSource.setUsername(environment.getRequiredProperty("jdbc.username"));
         dataSource.setPassword(environment.getRequiredProperty("jdbc.password"));
+        dataSource.setInitialSize(Integer.parseInt(environment.getRequiredProperty("jdbc.initialSize")));
         return dataSource;
     }
 

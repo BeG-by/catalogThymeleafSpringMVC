@@ -7,4 +7,6 @@ public interface UserDAO {
     boolean createUser(User user);
 
     User getUser(String email, String password);
+
+    void logout(User user);
 }

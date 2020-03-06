@@ -1,14 +1,10 @@
 package by.beg.catalog.config;
 
-
-import by.beg.catalog.entity.FinalOrder;
-import by.beg.catalog.entity.Product;
 import by.beg.catalog.interceptor.AdminInterceptor;
 import by.beg.catalog.interceptor.DispatcherInterceptor;
 import by.beg.catalog.interceptor.AuthorizationInterceptor;
 import by.beg.catalog.interceptor.NonAuthorizationInterceptor;
 import org.springframework.context.annotation.*;
-import org.springframework.web.context.annotation.SessionScope;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
@@ -18,25 +14,10 @@ import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 
 
-import java.util.ArrayList;
-
-
 @Configuration
 @EnableWebMvc
 @ComponentScan("by.beg.catalog")
 public class WebConfig implements WebMvcConfigurer {
-
-
-    @Bean("productBasket")
-    @SessionScope
-    public ArrayList<Product> basket() {
-        return new ArrayList<>();
-    }
-
-    @Bean("orderList")
-    public ArrayList<FinalOrder> orderList() {
-        return new ArrayList<>();
-    }
 
 
     @Override

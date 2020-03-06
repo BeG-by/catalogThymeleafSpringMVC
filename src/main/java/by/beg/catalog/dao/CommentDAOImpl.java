@@ -12,7 +12,7 @@ import java.util.List;
 @Repository
 public class CommentDAOImpl implements CommentDAO {
 
-    private static Logger logger = LoggerFactory.getLogger(CommentDAOImpl.class.getSimpleName());
+    private static Logger logger = LoggerFactory.getLogger(CommentDAOImpl.class.getName());
     private SessionFactory sessionFactory;
 
     @Autowired
