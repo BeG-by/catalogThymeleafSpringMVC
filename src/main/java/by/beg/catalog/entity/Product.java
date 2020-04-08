@@ -1,7 +1,5 @@
 package by.beg.catalog.entity;
 
-import org.hibernate.annotations.Cascade;
-
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
@@ -9,7 +7,6 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "products")
 public class Product implements Serializable {
 
     @Id
@@ -29,6 +26,10 @@ public class Product implements Serializable {
 
     @Positive(message = "Цена должна быть больше 0")
     private int price;
+
+    @OneToMany(mappedBy = "product", orphanRemoval = true, cascade = CascadeType.ALL)
+    private List<BasketOrder> basketOrders;
+
 
     public Product(int id, String name, ProductTypeEnum type, String description, int price) {
         this.id = id;
@@ -88,6 +89,14 @@ public class Product implements Serializable {
 
     public void setType(ProductTypeEnum type) {
         this.type = type;
+    }
+
+    public List<BasketOrder> getBasketOrders() {
+        return basketOrders;
+    }
+
+    public void setBasketOrders(List<BasketOrder> basketOrders) {
+        this.basketOrders = basketOrders;
     }
 
 

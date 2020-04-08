@@ -27,11 +27,23 @@ public class BasketOrderDAOImpl implements BasketOrderDAO {
     }
 
     @Override
-    public void addProduct(int userId, int productId) {
+    @SuppressWarnings("unchecked")
+    public boolean addProduct(int userId, int productId) {
         User user = sessionFactory.getCurrentSession().load(User.class, (long) userId);
         Product product = sessionFactory.getCurrentSession().load(Product.class, (long) productId);
-        sessionFactory.getCurrentSession().persist(new BasketOrder(user, product));
-        logger.info("BasketOrder was added: user_id(" + userId + "), product_id(" + productId + ")");
+
+        Query<BasketOrderDAO> query = sessionFactory.getCurrentSession().createQuery("FROM BasketOrder WHERE user = :user AND product = :product");
+        query.setParameter("user", user);
+        query.setParameter("product", product);
+
+        if (query.getResultList().isEmpty()) {
+            sessionFactory.getCurrentSession().persist(new BasketOrder(user, product));
+            logger.info("BasketOrder was added: user_id(" + userId + "), product_id(" + productId + ")");
+            return true;
+        }
+
+        return false;
+
     }
 
     @Override
@@ -68,7 +80,15 @@ public class BasketOrderDAOImpl implements BasketOrderDAO {
 
     @Override
     @SuppressWarnings("unchecked")
-    public void doOrder(User user) {
+    public boolean doOrder(User user) {
+
+        Query<FinalOrder> checkOrder = sessionFactory.getCurrentSession().createQuery("FROM FinalOrder WHERE user = :user").setParameter("user", user);
+
+        if (!checkOrder.getResultList().isEmpty()) {
+            return false;
+        }
+
+
         Query<BasketOrder> query = sessionFactory.getCurrentSession().createQuery("FROM BasketOrder WHERE user = :user").setParameter("user", user);
         List<BasketOrder> resultList = query.getResultList();
         Date date = new Date();
@@ -80,7 +100,8 @@ public class BasketOrderDAOImpl implements BasketOrderDAO {
         }
 
         sessionFactory.getCurrentSession().save(new FinalOrder(date, user, productList));
-
         sessionFactory.getCurrentSession().createQuery("DELETE FROM BasketOrder WHERE user = :user").setParameter("user", user).executeUpdate();
+
+        return true;
     }
 }

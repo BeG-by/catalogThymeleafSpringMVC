@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "users")
 public class User implements Serializable {
 
     @Id
@@ -17,7 +16,7 @@ public class User implements Serializable {
     private long id;
 
     @NotBlank(message = "Заполните имя")
-    @Size(min = 2 , max = 12, message = "Имя должно быть от 2 до 12 символов")
+    @Size(min = 2, max = 12, message = "Имя должно быть от 2 до 12 символов")
     private String name;
 
     @NotBlank(message = "Заполните номер")
@@ -30,7 +29,7 @@ public class User implements Serializable {
     private String email;
 
     @NotBlank(message = "Заполните пароль")
-    @Size(min = 4 , max = 16 , message = "Пароль должен содержать от 4 до 16 символов")
+    @Size(min = 4, max = 16, message = "Пароль должен содержать от 4 до 16 символов")
     private String password;
 
     @Column(name = "admin")
@@ -38,6 +37,12 @@ public class User implements Serializable {
 
     @Column(name = "dispatcher")
     private boolean isDispatcher;
+
+    @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = CascadeType.ALL)
+    private List<BasketOrder> basketOrders;
+
+    @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = CascadeType.ALL)
+    private List<FinalOrder> finalOrders;
 
 
     public User(String name, String phoneNumber, String address, String email, String password, boolean isAdmin, boolean isDispatcher) {
@@ -126,6 +131,25 @@ public class User implements Serializable {
         isDispatcher = dispatcher;
     }
 
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public List<BasketOrder> getBasketOrders() {
+        return basketOrders;
+    }
+
+    public void setBasketOrders(List<BasketOrder> basketOrders) {
+        this.basketOrders = basketOrders;
+    }
+
+    public List<FinalOrder> getFinalOrders() {
+        return finalOrders;
+    }
+
+    public void setFinalOrders(List<FinalOrder> finalOrders) {
+        this.finalOrders = finalOrders;
+    }
 
     @Override
     public boolean equals(Object o) {

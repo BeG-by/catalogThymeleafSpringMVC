@@ -34,8 +34,16 @@
     </a>
 </nav>
 
-<p th:if="${added}">Товар был добавлен в корзину.</p>
-<p th:if="${isOrdered}">Заказ принят. Ожидайте звонка диспетчера.</p>
+<div th:switch="${isAdded}">
+    <p th:case="0">Товар уже в корзине</p>
+    <p th:case="1">Товар был добавлен в корзину.</p>
+</div>
+
+<div th:switch="${isOrdered}">
+    <p th:case="0">Вы уже сделали заказ. Ожидайте звонка диспетчера.</p>
+    <p th:case="1">Заказ принят. Ожидайте звонка диспетчера.</p>
+</div>
+
 <p th:if="${filterIsEmpty}">Таких товаров в магазине нет</p>
 <p th:if="${user != null and user.isAdmin()}">Вы администратор</p>
 <p th:if="${user != null and user.isDispatcher()}">Вы диспетчер</p>

@@ -33,11 +33,16 @@ public class BasketOrdersController {
     @GetMapping("/add/{id}")
     public ModelAndView addProductBasket(ModelAndView modelAndView, @PathVariable int id) {
         int userId = (int) modelAndView.getModelMap().getAttribute("userId");
-        basketOrderService.addProduct(userId, id);
 
-        modelAndView.addObject("added", true);
+        if (basketOrderService.addProduct(userId, id)) {
+            modelAndView.addObject("isAdded", 1);
+        } else {
+            modelAndView.addObject("isAdded", 0);
+        }
+
         modelAndView.setViewName("forward:/");
         return modelAndView;
+
     }
 
     @GetMapping("/remove/{id}")
@@ -55,9 +60,12 @@ public class BasketOrdersController {
 
         User currentUser = (User) session.getAttribute("currentUser");
 
-        basketOrderService.doOrder(currentUser);
+        if (basketOrderService.doOrder(currentUser)) {
+            modelAndView.addObject("isOrdered", 1);
+        } else {
+            modelAndView.addObject("isOrdered", 0);
+        }
 
-        modelAndView.addObject("isOrdered", true);
         modelAndView.setViewName("forward:/");
         return modelAndView;
     }

@@ -18,7 +18,7 @@ public class FinalOrder implements Serializable {
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
     private User user;
 
-    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH} , fetch = FetchType.EAGER)
     private List<Product> products;
 
     public FinalOrder(Date time, User user, List<Product> products) {
@@ -58,12 +58,12 @@ public class FinalOrder implements Serializable {
         this.user = user;
     }
 
-    public List<Product> getProduct() {
+    public List<Product> getProducts() {
         return products;
     }
 
-    public void setProduct(List<Product> product) {
-        this.products = product;
+    public void setProducts(List<Product> products) {
+        this.products = products;
     }
 
     @Override

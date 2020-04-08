@@ -5,7 +5,6 @@ import java.io.Serializable;
 
 
 @Entity
-@Table(name = "basket_order")
 public class BasketOrder implements Serializable {
 
     @Id

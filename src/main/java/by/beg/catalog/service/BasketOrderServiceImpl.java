@@ -22,8 +22,8 @@ public class BasketOrderServiceImpl implements BasketOrderService {
 
 
     @Override
-    public void addProduct(int userId, int productId) {
-        basketOrderDAO.addProduct(userId, productId);
+    public boolean addProduct(int userId, int productId) {
+        return basketOrderDAO.addProduct(userId, productId);
     }
 
     @Override
@@ -37,7 +37,7 @@ public class BasketOrderServiceImpl implements BasketOrderService {
     }
 
     @Override
-    public void doOrder(User user) {
-        basketOrderDAO.doOrder(user);
+    public boolean doOrder(User user) {
+        return basketOrderDAO.doOrder(user);
     }
 }

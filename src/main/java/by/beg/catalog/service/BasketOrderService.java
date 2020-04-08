@@ -7,12 +7,12 @@ import java.util.List;
 
 public interface BasketOrderService {
 
-    void addProduct(int userId, int productId);
+    boolean addProduct(int userId, int productId);
 
     void removeProduct(int userId, int productId);
 
     List<Product> getProductList(int userId);
 
-    void doOrder(User user);
+    boolean doOrder(User user);
 
 }
